@@ -1,5 +1,9 @@
 # Newtonite Operations
 
+Live Demo: http://3.85.219.86/
+
+GitHub Repository: https://github.com/Siddhu1080/newtonite-operations
+
 Newtonite Operations is an internal operations management application built to manage teams, work items, comments, and activity history. It focuses on team-based access control, reliable work-item creation, and handling concurrent updates.
 
 ## Features
