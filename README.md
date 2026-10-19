@@ -39,12 +39,11 @@ Newtonite-operations/
 │   │   └── main.py
 │   ├── tests/
 │   └── requirements.txt
-├── client/
+├── frontend//
 ├── ENGINEERING_DECISIONS.md
 └── README.md
 ```
 
-*Note: Adjust the structure above if your actual folders or filenames differ.*
 
 ## Prerequisites
 
@@ -58,8 +57,8 @@ Newtonite-operations/
 ### 1. Clone the repository
 
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
-cd Newtonite-operations
+git clone https://github.com/Siddhu1080/newtonite-operations.git
+cd newtonite-operations
 ```
 
 Replace the placeholder with your actual repository URL.
@@ -110,18 +109,17 @@ The API will normally be available at:
 - Health check: `http://127.0.0.1:8000/health`
 
 ## Frontend Setup
+```
+Open a second terminal from the project root:
 
-If the `client` directory contains the React application, open a second terminal:
-
-```powershell
-cd client
+cd frontend
 npm install
 npm run dev
+
+Use the local URL printed by Vite. Ensure the frontend's API URL and the backend's CORS configuration match your local setup.
 ```
 
 Use the local URL printed by Vite. Ensure the frontend's API URL and the backend's CORS configuration match your local setup.
-
-## Running Tests
 
 ## Running Tests
 
