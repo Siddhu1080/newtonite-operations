@@ -113,14 +113,13 @@ The API will normally be available at:
 - Health check: `http://127.0.0.1:8000/health`
 
 ## Frontend Setup
-```
+
 Open a second terminal from the project root:
 
+```powershell
 cd frontend
 npm install
 npm run dev
-
-Use the local URL printed by Vite. Ensure the frontend's API URL and the backend's CORS configuration match your local setup.
 ```
 
 Use the local URL printed by Vite. Ensure the frontend's API URL and the backend's CORS configuration match your local setup.
@@ -131,7 +130,7 @@ The backend uses `pytest` for automated testing. Tests require a separate test d
 
 **Important:** Never use the production database for testing. Use a separate MySQL test database.
 
-From the `backend` directory, configure `TEST_DATABASE_URL` with your test database connection string.
+Run these commands from the `backend` directory.
 
 **Windows PowerShell:**
 
@@ -149,7 +148,7 @@ export PYTHONPATH="."
 python -m pytest -v
 ```
 
-Replace the placeholders with your test database credentials. Check the test output for the actual number of passed and failed tests.
+Replace the placeholders with credentials for your separate test database. Check the test output for the actual number of passed and failed tests.
 
 ## Engineering Decisions
 
