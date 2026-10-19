@@ -35,6 +35,9 @@ function App() {
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
   const [showCreate, setShowCreate] = useState(false);
+  const [showCreateTeam, setShowCreateTeam] = useState(false);
+  const [newTeamName, setNewTeamName] = useState("");
+  const [creatingTeam, setCreatingTeam] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
 
   const [newTitle, setNewTitle] = useState("");
@@ -101,6 +104,37 @@ function App() {
       setError(err.message || "Could not load workspace data.");
     } finally {
       setDataLoading(false);
+    }
+  }
+    async function createTeam(event) {
+    event.preventDefault();
+    setError("");
+    setSuccess("");
+
+    const name = newTeamName.trim();
+
+    if (!name) {
+      setError("Please enter a team name.");
+      return;
+    }
+
+    setCreatingTeam(true);
+
+    try {
+      await apiRequest("/teams/", {
+        method: "POST",
+        body: JSON.stringify({ name }),
+      });
+
+      setNewTeamName("");
+      setShowCreateTeam(false);
+      setSuccess("Team created successfully.");
+
+      await loadWorkspaceData();
+    } catch (err) {
+      setError(err.message || "Could not create the team.");
+    } finally {
+      setCreatingTeam(false);
     }
   }
 
@@ -177,7 +211,7 @@ function App() {
       await apiRequest("/work-items/", {
         method: "POST",
         headers: {
-          "Idempotency-Key": crypto.randomUUID(),
+          "Idempotency-Key": `${Date.now()}-${Math.random().toString(36).slice(2)}`,
         },
         body: JSON.stringify({
           title: newTitle.trim(),
@@ -581,8 +615,37 @@ function App() {
                   <h1>Teams</h1>
                   <p>View your teams and the people working with you.</p>
                 </div>
+                              <button
+                  className="primary-button"
+                  onClick={() => setShowCreateTeam(true)}
+                >
+                  <Plus size={18} /> Create Team
+                </button>
               </section>
-
+                             {showCreateTeam && (
+                <div className="info-panel">
+                  <h3>Create a team</h3>
+                  <form onSubmit={createTeam}>
+                    <label htmlFor="team-name">Team name</label>
+                    <input
+                      id="team-name"
+                      type="text"
+                      value={newTeamName}
+                      onChange={(e) => setNewTeamName(e.target.value)}
+                      required
+                    />
+                    <button type="submit" disabled={creatingTeam}>
+                      {creatingTeam ? "Creating..." : "Create Team"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowCreateTeam(false)}
+                    >
+                      Cancel
+                    </button>
+                  </form>
+                </div>
+              )}  
               {dataLoading && <p role="status">Loading teams...</p>}
 
               {!dataLoading && teams.length === 0 && (

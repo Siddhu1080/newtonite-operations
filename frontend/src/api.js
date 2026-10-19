@@ -1,5 +1,5 @@
 
-const API_BASE_URL = "http://localhost:8000";
+const API_BASE_URL = "";
 
 // Send requests to the FastAPI backend
 export async function apiRequest(path, options = {}) {
