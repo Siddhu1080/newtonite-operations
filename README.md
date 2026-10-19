@@ -123,16 +123,31 @@ Use the local URL printed by Vite. Ensure the frontend's API URL and the backend
 
 ## Running Tests
 
-Configure a separate MySQL test database and set `TEST_DATABASE_URL` to its connection URL. Do not point the test configuration at a database containing important data.
+## Running Tests
 
-From the `backend` directory, activate the virtual environment and run:
+The backend uses `pytest` for automated testing. Tests require a separate test database configured through the `TEST_DATABASE_URL` environment variable.
+
+**Important:** Never use the production database for testing. Use a separate MySQL test database.
+
+From the `backend` directory, configure `TEST_DATABASE_URL` with your test database connection string.
+
+**Windows PowerShell:**
 
 ```powershell
+$env:TEST_DATABASE_URL = "mysql+pymysql://<username>:<password>@localhost/<test_database>"
 $env:PYTHONPATH = "."
 python -m pytest -v
 ```
 
-The tests should run against the configured test database. Check the test output for the actual number of passed or failed tests.
+**Ubuntu/Linux:**
+
+```bash
+export TEST_DATABASE_URL="mysql+pymysql://<username>:<password>@localhost/<test_database>"
+export PYTHONPATH="."
+python -m pytest -v
+```
+
+Replace the placeholders with your test database credentials. Check the test output for the actual number of passed and failed tests.
 
 ## Engineering Decisions
 
